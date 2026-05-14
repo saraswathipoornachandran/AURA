@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AURA Admin Console</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f3ed;--ink:#171615;--muted:#7a7168;--line:#e6ddd2;--card:#fff;--gold:#b79664;--dark:#111;--green:#166534;--red:#991b1b;--blue:#075985;--amber:#92400e}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Inter,system-ui,sans-serif;color:var(--ink)}button,input,select,textarea{font:inherit}.layout{display:grid;grid-template-columns:290px 1fr;min-height:100vh}
+.sidebar{background:linear-gradient(180deg,#171615,#28221c);color:#fff;padding:26px;position:sticky;top:0;height:100vh;overflow:auto}.brand{display:flex;align-items:center;gap:13px;font-weight:900;letter-spacing:3px}.brand span{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:#fff;color:#111}.side-sub{font-size:12px;color:#cfc7bf;margin:8px 0 28px}.menu{display:grid;gap:9px}.menu button{border:1px solid #ffffff1f;background:#ffffff08;color:#e8e2db;border-radius:16px;padding:14px 16px;text-align:left;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:11px}.menu button.active,.menu button:hover{background:#fff;color:#171615}.side-card{margin-top:25px;background:#ffffff10;border:1px solid #ffffff1f;border-radius:22px;padding:18px}.side-card b{display:block;margin-bottom:8px}.side-card p{color:#d8d0c8;font-size:13px;line-height:1.6}
+.main{padding:30px 38px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:26px}.crumb{color:var(--gold);font-size:11px;font-weight:900;letter-spacing:3px;text-transform:uppercase}.title{font-family:'Playfair Display',serif;font-size:44px;margin:8px 0 0}.top-actions{display:flex;gap:12px;align-items:center}.pill{border:1px solid var(--line);background:#fff;border-radius:999px;padding:11px 18px;font-weight:800}.primary{border:0;background:#171615;color:#fff;border-radius:999px;padding:12px 20px;font-weight:900;cursor:pointer}.ghost{border:1px solid var(--line);background:#fff;color:#171615;border-radius:999px;padding:11px 18px;font-weight:800;cursor:pointer}.danger{background:#fee2e2;color:#991b1b;border:0;border-radius:999px;padding:9px 14px;font-weight:900}
+.grid-kpi{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:24px}.kpi{background:#fff;border:1px solid var(--line);border-radius:24px;padding:20px;box-shadow:0 14px 40px #00000006}.kpi .label{color:var(--muted);font-size:12px;text-transform:uppercase;font-weight:900;letter-spacing:1px}.kpi .value{font-size:28px;font-weight:900;margin-top:8px}.kpi small{color:var(--muted)}
+.section{display:none}.section.active{display:block}.cards{display:grid;grid-template-columns:1.2fr .8fr;gap:20px}.card{background:#fff;border:1px solid var(--line);border-radius:26px;padding:22px;box-shadow:0 14px 40px #00000006}.card h3{margin:0 0 15px;font-size:18px}.toolbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:16px}.toolbar-left,.toolbar-right{display:flex;gap:10px;align-items:center}.search{width:310px;border:1px solid var(--line);background:#fff;border-radius:999px;padding:12px 18px}.table-wrap{background:#fff;border:1px solid var(--line);border-radius:24px;overflow:auto;box-shadow:0 14px 40px #00000006}table{width:100%;border-collapse:collapse;min-width:850px}th,td{padding:16px;border-bottom:1px solid var(--line);text-align:left;vertical-align:middle}th{background:#f0e9df;font-size:12px;text-transform:uppercase;letter-spacing:.5px}tr:hover td{background:#fffdf9}.status{display:inline-block;padding:6px 11px;border-radius:999px;font-size:11px;font-weight:900;text-transform:uppercase;background:#fef3c7;color:#92400e}.status.delivered,.status.active{background:#dcfce7;color:#166534}.status.cancelled,.status.disabled{background:#fee2e2;color:#991b1b}.status.processing,.status.open{background:#e0f2fe;color:#075985}.muted{color:var(--muted)}.mini{font-size:12px}.split{display:grid;grid-template-columns:1fr 1fr;gap:12px}.form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}input,select,textarea{width:100%;border:1px solid var(--line);background:#faf8f5;border-radius:14px;padding:12px 14px;margin:0}textarea{resize:vertical}.stat-list{display:grid;gap:12px}.stat-line{display:flex;justify-content:space-between;gap:10px;border-bottom:1px solid var(--line);padding-bottom:11px}.bar{height:12px;background:#eee4d8;border-radius:999px;overflow:hidden}.bar span{display:block;height:100%;background:linear-gradient(90deg,#b79664,#171615)}.modal{position:fixed;inset:0;background:#0008;display:grid;place-items:center;padding:20px;z-index:50}.hidden{display:none!important}.modal-box{width:min(720px,95vw);max-height:90vh;overflow:auto;background:#fff;border-radius:28px;padding:28px;position:relative}.x{position:absolute;right:18px;top:18px;width:38px;height:38px;border:0;border-radius:50%;background:#f0e9df;font-size:22px}.activity{display:grid;gap:12px}.activity-item{padding:14px;border:1px solid var(--line);border-radius:16px;background:#fff}.activity-item b{display:block}.empty{padding:25px;text-align:center;color:var(--muted)}.mobileTop{display:none}
+@media(max-width:1100px){.layout{grid-template-columns:1fr}.sidebar{position:static;height:auto}.grid-kpi{grid-template-columns:repeat(2,1fr)}.cards{grid-template-columns:1fr}.main{padding:22px}.toolbar{flex-direction:column;align-items:stretch}.search{width:100%}.mobileTop{display:block}}@media(max-width:650px){.grid-kpi,.form-grid,.split{grid-template-columns:1fr}.title{font-size:34px}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside class="sidebar">
+  <div class="brand"><span>A</span>AURA</div>
+  <p class="side-sub">PREMIUM E-COMMERCE ADMIN</p>
+  <div class="menu">
+    <button class="active" onclick="showSec('dashboard',this)">📊 Dashboard Overview</button>
+    <button onclick="showSec('orders',this)">📦 Order Management</button>
+    <button onclick="showSec('products',this)">🛍️ Product & Inventory</button>
+    <button onclick="showSec('customers',this)">👥 Customer Accounts</button>
+    <button onclick="showSec('tickets',this)">💬 Support Tickets</button>
+    <button onclick="showSec('reports',this)">📈 Reports & Analytics</button>
+    <button onclick="showSec('coupons',this)">🏷️ Discounts & Coupons</button>
+    <button onclick="showSec('settings',this)">⚙️ Store Settings</button>
+    <button onclick="showSec('logs',this)">🧾 Activity Logs</button>
+  </div>
+  <div class="side-card">
+    <b>Demo Login</b>
+    <p>Admin: test@example.com<br>Password: password</p>
+    <button class="ghost" onclick="location.href='/'">Back to Store</button>
+  </div>
+</aside>
+<main class="main">
+  <div class="top">
+    <div><div class="crumb">Business Control Panel</div><h1 class="title">Admin Command Center</h1></div>
+    <div class="top-actions"><span class="pill" id="adminName">Admin</span><button class="primary" onclick="refreshAll()">Refresh</button><button class="ghost" onclick="logout()">Logout</button></div>
+  </div>
+
+  <div class="grid-kpi">
+    <div class="kpi"><div class="label">Total Sales</div><div class="value" id="kSales">AED 0</div><small>All confirmed orders</small></div>
+    <div class="kpi"><div class="label">Orders</div><div class="value" id="kOrders">0</div><small>Pending / processing / delivered</small></div>
+    <div class="kpi"><div class="label">Products</div><div class="value" id="kProducts">0</div><small>Active products</small></div>
+    <div class="kpi"><div class="label">Customers</div><div class="value" id="kCustomers">0</div><small>Registered accounts</small></div>
+    <div class="kpi"><div class="label">Open Tickets</div><div class="value" id="kTickets">0</div><small>Support follow-up</small></div>
+  </div>
+
+  <section id="sec-dashboard" class="section active">
+    <div class="cards">
+      <div class="card"><h3>Recent Orders</h3><div id="dashOrders" class="stat-list"></div></div>
+      <div class="card"><h3>Low Stock Alerts</h3><div id="dashStock" class="stat-list"></div></div>
+    </div>
+    <div class="cards" style="margin-top:20px">
+      <div class="card"><h3>Recent Activity</h3><div id="dashLogs" class="activity"></div></div>
+      <div class="card"><h3>Quick Actions</h3><div class="stat-list"><button class="primary" onclick="showSec('products',document.querySelectorAll('.menu button')[2]);openAddProductModal()">+ Add Product</button><button class="ghost" onclick="showSec('orders',document.querySelectorAll('.menu button')[1])">View Orders</button><button class="ghost" onclick="showSec('reports',document.querySelectorAll('.menu button')[5])">Open Reports</button></div></div>
+    </div>
+  </section>
+
+  <section id="sec-orders" class="section">
+    <div class="toolbar"><div class="toolbar-left"><input class="search" id="orderSearch" placeholder="Search order/customer/status..." onkeyup="renderOrders()"></div><div class="toolbar-right"><button class="ghost" onclick="loadOrders()">Reload Orders</button></div></div>
+    <div class="table-wrap"><table><thead><tr><th>Order</th><th>Customer</th><th>Items</th><th>Amount</th><th>Status</th><th>Tracking Update</th></tr></thead><tbody id="ordersBody"></tbody></table></div>
+  </section>
+
+  <section id="sec-products" class="section">
+    <div class="toolbar"><div class="toolbar-left"><button class="primary" onclick="openAddProductModal()">+ Add Item</button><button class="ghost" onclick="openModal('bulkModal')">Bulk Upload CSV</button></div><div class="toolbar-right"><input class="search" id="productSearch" placeholder="Search products..." onkeyup="renderProducts()"></div></div>
+    <div class="table-wrap"><table><thead><tr><th>ID</th><th>Product</th><th>Category</th><th>Price</th><th>Offer</th><th>Stock</th><th>Actions</th></tr></thead><tbody id="productsBody"></tbody></table></div>
+  </section>
+
+  <section id="sec-customers" class="section">
+    <div class="toolbar"><input class="search" id="customerSearch" placeholder="Search customers..." onkeyup="renderCustomers()"></div>
+    <div class="table-wrap"><table><thead><tr><th>Customer</th><th>Phone</th><th>Orders</th><th>Total Spend</th><th>Address</th></tr></thead><tbody id="customersBody"></tbody></table></div>
+  </section>
+
+  <section id="sec-tickets" class="section">
+    <div class="table-wrap"><table><thead><tr><th>Ticket</th><th>Customer</th><th>Message</th><th>Status</th><th>Action</th></tr></thead><tbody id="ticketsBody"></tbody></table></div>
+  </section>
+
+  <section id="sec-reports" class="section">
+    <div class="cards">
+      <div class="card"><h3>Top Products</h3><div id="topProducts" class="stat-list"></div></div>
+      <div class="card"><h3>Order Status Breakdown</h3><div id="statusBars" class="stat-list"></div></div>
+    </div>
+    <div class="card" style="margin-top:20px"><h3>Last 7 Days Sales</h3><div id="dailySales" class="stat-list"></div></div>
+  </section>
+
+  <section id="sec-coupons" class="section">
+    <div class="card" style="margin-bottom:20px"><h3>Create Discount / Coupon</h3><div class="form-grid"><input id="couponCode" placeholder="Code e.g. AURA10"><select id="couponType"><option value="percentage">Percentage</option><option value="fixed">Fixed AED</option></select><input id="couponValue" type="number" placeholder="Value"><button class="primary" onclick="addCoupon()">Add Coupon</button></div></div>
+    <div class="table-wrap"><table><thead><tr><th>Code</th><th>Type</th><th>Value</th><th>Status</th><th>Action</th></tr></thead><tbody id="couponsBody"></tbody></table></div>
+  </section>
+
+  <section id="sec-settings" class="section">
+    <div class="card"><h3>Store Configuration</h3><div class="form-grid"><input id="setStore" placeholder="Store Name"><input id="setEmail" placeholder="Support Email"><input id="setCurrency" placeholder="Currency"><input id="setPayment" placeholder="Payment Gateway"><input id="setSubdomain" placeholder="Subdomain"><input id="setDomain" placeholder="Custom Domain"></div><button class="primary" style="margin-top:15px" onclick="saveSettings()">Save Settings</button></div>
+  </section>
+
+  <section id="sec-logs" class="section">
+    <div class="toolbar"><input class="search" id="logSearch" placeholder="Search activity logs..." onkeyup="renderLogs()"></div>
+    <div id="logsBody" class="activity"></div>
+  </section>
+</main>
+</div>
+
+<div id="addModal" class="modal hidden"><div class="modal-box"><button class="x" onclick="closeModal('addModal')">×</button><h2>Add Product</h2><div class="form-grid"><input id="addId" type="number" placeholder="Product ID optional"><input id="addName" placeholder="Product Name"><input id="addBrand" placeholder="Brand" value="AURA"><input id="addCategory" placeholder="Category"><input id="addColor" placeholder="Color"><input id="addSizes" placeholder="Sizes" value="S,M,L,XL"><input id="addPrice" type="number" placeholder="Price"><input id="addOld" type="number" placeholder="Offer / Old Price"><input id="addStock" type="number" placeholder="Stock"><input id="addFeatured" type="number" placeholder="Featured 1/0" value="0"></div><textarea id="addDesc" rows="3" placeholder="Description" style="margin-top:12px"></textarea><button class="primary" style="margin-top:14px" onclick="addProduct()">Add Product</button><p class="muted">Image is auto-generated if no image URL is given.</p></div></div>
+<div id="editModal" class="modal hidden"><div class="modal-box"><button class="x" onclick="closeModal('editModal')">×</button><h2>Edit Product</h2><div class="form-grid"><input id="editId" readonly><input id="editName" placeholder="Product Name"><input id="editBrand" placeholder="Brand"><input id="editCategory" placeholder="Category"><input id="editColor" placeholder="Color"><input id="editSizes" placeholder="Sizes"><input id="editPrice" type="number" placeholder="Price"><input id="editOld" type="number" placeholder="Offer / Old Price"><input id="editStock" type="number" placeholder="Stock"><input id="editFeatured" type="number" placeholder="Featured 1/0"></div><textarea id="editDesc" rows="3" placeholder="Description" style="margin-top:12px"></textarea><button class="primary" style="margin-top:14px" onclick="saveProduct()">Save Changes</button></div></div>
+<div id="bulkModal" class="modal hidden"><div class="modal-box"><button class="x" onclick="closeModal('bulkModal')">×</button><h2>Bulk Product Upload</h2><p class="muted">Upload CSV exported from Excel. Required columns: id,name,brand,category,color,sizes,price,old_price,stock,description,image_url</p><input id="bulkFile" type="file" accept=".csv"><button class="ghost" onclick="downloadTemplate()">Download Template</button><button class="primary" onclick="bulkUpload()">Upload Products</button><p id="bulkMsg" class="muted"></p></div></div>
+
+<script>
+const $=id=>document.getElementById(id);let orders=[],products=[],customers=[],tickets=[],coupons=[],logs=[],settings={},reports={};
+async function api(url,opt={}){const r=await fetch(url,{headers:{'Content-Type':'application/json'},credentials:'include',...opt});const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||'Request failed');return d}
+function openModal(id){$(id).classList.remove('hidden')}function closeModal(id){$(id).classList.add('hidden')}
+async function ensureAdmin(){const me=await api('/api/auth/me');if(!me.user){location.href='/'}if(me.user.role!=='admin'){alert('Admin access required');location.href='/'}$('adminName').textContent=me.user.name}
+function showSec(id,btn){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));$('sec-'+id).classList.add('active');document.querySelectorAll('.menu button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active')}window.showSec=showSec;
+async function refreshAll(){await Promise.all([loadSummary(),loadOrders(),loadProducts(),loadCustomers(),loadTickets(),loadReports(),loadCoupons(),loadLogs(),loadSettings()])}
+async function loadSummary(){const s=await api('/api/admin/summary');$('kSales').textContent='AED '+Number(s.totalSales).toFixed(0);$('kOrders').textContent=s.orderCount;$('kProducts').textContent=s.productCount;$('kCustomers').textContent=s.activeCustomers;$('kTickets').textContent=s.openTickets;$('dashOrders').innerHTML=s.recentOrders.map(o=>`<div class="stat-line"><span><b>#${o.id}</b> ${o.customer||''}</span><span>AED ${Number(o.total_amount).toFixed(2)}</span></div>`).join('')||'<div class="empty">No recent orders</div>';$('dashStock').innerHTML=s.lowStock.map(p=>`<div class="stat-line"><span>#${p.id} ${p.name}</span><b>${p.stock} left</b></div>`).join('')||'<div class="empty">No low stock</div>';$('dashLogs').innerHTML=s.recentLogs.map(logCard).join('')||'<div class="empty">No activity</div>'}
+async function loadOrders(){orders=await api('/api/admin/orders');renderOrders()}function renderOrders(){const q=($('orderSearch')?.value||'').toLowerCase();$('ordersBody').innerHTML=orders.filter(o=>JSON.stringify(o).toLowerCase().includes(q)).map(o=>`<tr><td><b>#${o.id}</b><br><small>${new Date(o.created_at).toLocaleString()}<br>Invoice: ${o.invoice_number||'-'}</small></td><td>${o.user_name}<br><small class="muted">${o.user_email}</small></td><td>${(o.items||[]).length} item(s)<br><small>Payment: ${(o.payment_status||'-').toUpperCase()}<br>Refund: ${(o.refund_status||'none').toUpperCase()}<br>Email: ${(o.email_status||'-').toUpperCase()}</small></td><td><b>AED ${Number(o.total_amount).toFixed(2)}</b></td><td><span class="status ${o.status}">${o.status}</span></td><td><select onchange="updateOrder(${o.id},this.value)"><option value="">Update Status</option><option>processing</option><option>dispatched</option><option>delivered</option><option>cancelled</option></select><div style="display:grid;gap:6px;margin-top:8px"><a class="ghost" target="_blank" href="/api/orders/${o.id}/invoice">Invoice</a><button class="ghost" onclick="resendEmail(${o.id})">Resend Email</button>${o.refund_status==='requested'?`<button class="danger" onclick="processRefund(${(o.refunds&&o.refunds[0])?o.refunds[0].id:0},'approve')">Approve Refund</button><button class="ghost" onclick="processRefund(${(o.refunds&&o.refunds[0])?o.refunds[0].id:0},'reject')">Reject Refund</button>`:''}</div></td></tr>`).join('')||'<tr><td colspan="6" class="empty">No orders found</td></tr>'}
+async function resendEmail(id){await api('/api/admin/orders/'+id+'/resend-email',{method:'POST'});alert('Confirmation email queued');refreshAll()}
+async function processRefund(id,action){if(!id)return alert('Refund request not found');const note=prompt('Note for refund action')||'';await api('/api/admin/refunds/'+id,{method:'PUT',body:JSON.stringify({action,note})});alert('Refund updated');refreshAll()}
+window.resendEmail=resendEmail;window.processRefund=processRefund;
+async function updateOrder(id,status){if(!status)return;const message=prompt('Tracking message')||'';await api('/api/admin/orders/'+id+'/status',{method:'PUT',body:JSON.stringify({status,message})});refreshAll()}
+async function loadProducts(){products=await api('/api/products');renderProducts()}function renderProducts(){const q=($('productSearch')?.value||'').toLowerCase();$('productsBody').innerHTML=products.filter(p=>JSON.stringify(p).toLowerCase().includes(q)).map(p=>`<tr><td><b>#${p.id}</b></td><td><b>${p.name}</b><br><small class="muted">${p.brand}</small></td><td>${p.category}<br><small>${p.color}</small></td><td>AED ${Number(p.price).toFixed(2)}</td><td>${p.old_price?'AED '+Number(p.old_price).toFixed(2):'-'}</td><td><input type="number" value="${p.stock}" style="width:85px" onchange="updateStock(${p.id},this.value)"></td><td><button class="ghost" onclick="editProduct(${p.id})">Edit</button> <button class="danger" onclick="deleteProduct(${p.id})">Delete</button></td></tr>`).join('')}
+async function updateStock(id,stock){await api('/api/admin/products/'+id+'/stock',{method:'PUT',body:JSON.stringify({stock})});loadLogs();loadSummary()}
+function openAddProductModal(){['addId','addName','addCategory','addColor','addPrice','addOld','addStock','addDesc'].forEach(id=>$(id).value='');$('addBrand').value='AURA';$('addSizes').value='S,M,L,XL';$('addFeatured').value='0';openModal('addModal')}
+async function addProduct(){await api('/api/admin/products',{method:'POST',body:JSON.stringify({id:$('addId').value,name:$('addName').value,brand:$('addBrand').value,category:$('addCategory').value,color:$('addColor').value,sizes:$('addSizes').value,price:$('addPrice').value,old_price:$('addOld').value,stock:$('addStock').value,description:$('addDesc').value,featured:$('addFeatured').value})});closeModal('addModal');refreshAll()}
+function editProduct(id){const p=products.find(x=>x.id===id);$('editId').value=p.id;$('editName').value=p.name;$('editBrand').value=p.brand;$('editCategory').value=p.category;$('editColor').value=p.color;$('editSizes').value=p.sizes;$('editPrice').value=p.price;$('editOld').value=p.old_price||'';$('editStock').value=p.stock;$('editFeatured').value=p.featured||0;$('editDesc').value=p.description||'';openModal('editModal')}
+async function saveProduct(){const id=$('editId').value;await api('/api/admin/products/'+id,{method:'PUT',body:JSON.stringify({name:$('editName').value,brand:$('editBrand').value,category:$('editCategory').value,color:$('editColor').value,sizes:$('editSizes').value,price:$('editPrice').value,old_price:$('editOld').value,stock:$('editStock').value,featured:$('editFeatured').value,description:$('editDesc').value})});closeModal('editModal');refreshAll()}
+async function deleteProduct(id){if(confirm('Delete product #'+id+'?')){await api('/api/admin/products/'+id,{method:'DELETE'});refreshAll()}}
+async function loadCustomers(){customers=await api('/api/admin/customers');renderCustomers()}function renderCustomers(){const q=($('customerSearch')?.value||'').toLowerCase();$('customersBody').innerHTML=customers.filter(c=>JSON.stringify(c).toLowerCase().includes(q)).map(c=>`<tr><td><b>${c.name}</b><br><small>${c.email}</small></td><td>${c.phone||'-'}</td><td>${c.order_count}</td><td>AED ${Number(c.total_spend).toFixed(2)}</td><td>${c.address||'-'} ${c.city||''}</td></tr>`).join('')}
+async function loadTickets(){tickets=await api('/api/admin/tickets');$('ticketsBody').innerHTML=tickets.map(t=>`<tr><td><b>#${t.id}</b><br>${t.subject}</td><td>${t.user_name}<br><small>${t.user_email}</small></td><td>${t.message}</td><td><span class="status ${t.status}">${t.status}</span></td><td><select onchange="updateTicket(${t.id},this.value)"><option value="">Update</option><option>open</option><option>in-progress</option><option>closed</option></select></td></tr>`).join('')}
+async function updateTicket(id,status){if(status){await api('/api/admin/tickets/'+id,{method:'PUT',body:JSON.stringify({status})});refreshAll()}}
+async function loadReports(){reports=await api('/api/admin/reports');$('topProducts').innerHTML=reports.topProducts.map(p=>`<div class="stat-line"><span>#${p.id} ${p.name}<br><small>Sold ${p.sold}</small></span><b>AED ${Number(p.revenue).toFixed(0)}</b></div>`).join('');$('statusBars').innerHTML=reports.salesByStatus.map(x=>`<p><b>${x.status}</b> (${x.count})</p><div class="bar"><span style="width:${Math.min(100,x.count*25)}%"></span></div>`).join('');$('dailySales').innerHTML=reports.dailySales.map(d=>`<div class="stat-line"><span>${d.date}</span><b>AED ${Number(d.sales).toFixed(2)} / ${d.orders} orders</b></div>`).join('')}
+async function loadCoupons(){coupons=await api('/api/admin/coupons');$('couponsBody').innerHTML=coupons.map(c=>`<tr><td><b>${c.code}</b></td><td>${c.type}</td><td>${c.value}</td><td><span class="status ${c.status}">${c.status}</span></td><td><button class="ghost" onclick="toggleCoupon(${c.id},'${c.status==='active'?'disabled':'active'}')">${c.status==='active'?'Disable':'Activate'}</button></td></tr>`).join('')}
+async function addCoupon(){await api('/api/admin/coupons',{method:'POST',body:JSON.stringify({code:$('couponCode').value,type:$('couponType').value,value:$('couponValue').value})});$('couponCode').value='';$('couponValue').value='';refreshAll()}async function toggleCoupon(id,status){await api('/api/admin/coupons/'+id,{method:'PUT',body:JSON.stringify({status})});refreshAll()}
+async function loadLogs(){logs=await api('/api/admin/logs');renderLogs()}function logCard(l){return `<div class="activity-item"><b>${l.action}</b><span>${l.details}</span><br><small class="muted">${l.user_name} • ${new Date(l.created_at).toLocaleString()}</small></div>`}function renderLogs(){const q=($('logSearch')?.value||'').toLowerCase();$('logsBody').innerHTML=logs.filter(l=>JSON.stringify(l).toLowerCase().includes(q)).map(logCard).join('')||'<div class="empty">No logs</div>'}
+async function loadSettings(){settings=await api('/api/admin/settings');$('setStore').value=settings.store_name;$('setEmail').value=settings.support_email;$('setCurrency').value=settings.currency;$('setPayment').value=settings.payment_gateway;$('setSubdomain').value=settings.subdomain;$('setDomain').value=settings.custom_domain}
+async function saveSettings(){await api('/api/admin/settings',{method:'PUT',body:JSON.stringify({store_name:$('setStore').value,support_email:$('setEmail').value,currency:$('setCurrency').value,payment_gateway:$('setPayment').value,subdomain:$('setSubdomain').value,custom_domain:$('setDomain').value})});refreshAll()}
+function parseCsv(text){const rows=[];let row=[],cell='',q=false;for(let i=0;i<text.length;i++){const ch=text[i],n=text[i+1];if(ch=='"'&&q&&n=='"'){cell+='"';i++;continue}if(ch=='"'){q=!q;continue}if(ch==','&&!q){row.push(cell.trim());cell='';continue}if((ch=='\n'||ch=='\r')&&!q){if(ch=='\r'&&n=='\n')i++;row.push(cell.trim());if(row.some(v=>v))rows.push(row);row=[];cell='';continue}cell+=ch}row.push(cell.trim());if(row.some(v=>v))rows.push(row);return rows}
+function csvToProducts(rows){const h=rows[0].map(x=>x.toLowerCase().trim());return rows.slice(1).map(r=>{let o={};h.forEach((k,i)=>o[k]=r[i]||'');return o}).filter(o=>o.name)}
+function downloadTemplate(){const csv='id,name,brand,category,color,sizes,price,old_price,stock,description,image_url\\n101,Premium Denim Jacket,AURA Street,Men,Blue,"S,M,L,XL",299,399,20,Modern denim jacket,\\n';const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv'}));a.download='aura_products_template.csv';a.click()}
+async function bulkUpload(){try{const f=$('bulkFile').files[0];if(!f)throw new Error('Select CSV file');const bulk=csvToProducts(parseCsv(await f.text()));await api('/api/admin/products/bulk',{method:'POST',body:JSON.stringify({products:bulk})});closeModal('bulkModal');refreshAll()}catch(e){$('bulkMsg').textContent=e.message}}
+async function logout(){await api('/api/auth/logout',{method:'POST'});location.href='/'}
+ensureAdmin().then(refreshAll).catch(()=>location.href='/');
+</script>
+</body>
+</html>
